@@ -4,21 +4,18 @@
     {
         static void Main(string[] args)
         {
-            BinarySearchTree<int> tree = new BinarySearchTree<int>();
+            MaxBinaryHeap<int> heap = new MaxBinaryHeap<int>();
 
-            tree.Insert(10);
-            tree.Insert(6);
-            tree.Insert(15);
-            tree.Insert(3);
-            tree.Insert(8);
-            tree.Insert(20);
-
-            List<int> treeValues = tree.DFSInOrder();
-
-            foreach(int value in treeValues)
-            {
-                Console.WriteLine(value);
-            }
+            heap.Insert(41);
+            heap.Insert(39);
+            heap.Insert(33);
+            heap.Insert(18);
+            heap.Insert(27);
+            heap.Insert(12);
+            heap.Insert(55);
+            heap.Insert(1);
+            heap.Insert(45);
+            heap.Insert(199);
         }
     }
 }

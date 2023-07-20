@@ -26,6 +26,34 @@ namespace DataStructures
         }
 
         /// <summary>
+        /// ExtractMax removes the root from the heap.
+        /// </summary>
+        /// <returns>The max value of the heap</returns>
+        internal T? ExtractMax()
+        {
+            // if the heap is empty, return the default for T
+            if (values.Count == 0) return default;
+
+            // set max to the first element in the heap
+            T max = values[0];
+            // set the end to the last element in the heap
+            T end = values.Last();
+            // remove the end element from the list
+            values.RemoveAt(values.Count - 1);
+
+            // if the heap is not empty
+            if (values.Count > 0)
+            {
+                // set the new max as the end value in the heap
+                values[0] = end;
+                // send the new end down the heap until it finds a fitting parent
+                SinkDown();
+            }
+            
+            return max;
+        }
+
+        /// <summary>
         /// BubbleUp swaps the parent node with the inserted node if the inserted node is larger than the parent.
         /// </summary>
         /// <param name="index"></param>
@@ -50,6 +78,77 @@ namespace DataStructures
 
                 // set the index to the parentIndex to check if the parent needs to swap with its new parent
                 index = parentIndex;
+            }
+        }
+
+        /// <summary>
+        /// SinkDown takes the new root after extract and sends it down the heap until it finds a fitting parent.
+        /// </summary>
+        private void SinkDown()
+        {
+            int index = 0;
+            int length = values.Count;
+            T element = values[0];
+
+            while (true)
+            {
+                // in a list, the left child is always at (index * 2) + 1, or + 2 for right child
+                int leftChildIndex = index * 2 + 1;
+                int rightChildIndex = index * 2 + 2;
+
+                T? leftChildValue = default;
+                T? rightChildValue = default;
+
+                // set swap to -1 if it hasn't been swapped yet
+                int swap = -1;
+
+                // if the index of the left child is less than the length of the heap
+                if (leftChildIndex < length)
+                {
+                    // set the left child value to the left child in the list
+                    leftChildValue = values[leftChildIndex];
+
+                    // if the new root is smaller than the left child value
+                    if (IsLessThan(element, leftChildValue))
+                    {
+                        // set swap to the index of the left child
+                        // this will be used later to set a parent
+                        swap = leftChildIndex;
+                    }
+                }
+
+                // if the index of the right child is less than the length of the heap
+                if (rightChildIndex < length)
+                {
+                    // set the right child value to the value of the right child in the list
+                    rightChildValue = values[rightChildIndex];
+
+                    // if swap is -1 (aka, no left child index) and the new root value is less than the right child value
+                    // OR
+                    // the left child does have a value and the that value is less than the right child's value
+                    // 
+                    // we want the swap index to be the larger of the two left or right values. so if left has a value 
+                    // and it's smaller than right's value, set the swap to the right child index. otherwise, leave it as
+                    // the left child's index.
+                    if (
+                        (swap == -1 && IsLessThan(element, rightChildValue)) ||
+                        (swap != -1 && leftChildValue != null && IsLessThan(leftChildValue, rightChildValue))
+                    )
+                    {
+                        // set the swap to the right child
+                        swap = rightChildIndex;
+                    }
+                }
+
+                // if the right or left child index are out of bounds or are smaller than their parent already, nothing to change
+                if (swap == -1) break;
+
+                // set the value at the current index to the value at the index of the swap (right or left child index)
+                values[index] = values[swap];
+                // the value at the swap index (right or left child index) becomes our new root value
+                values[swap] = element;
+                // set the index as the swap index and start the loop over
+                index = swap;
             }
         }
 

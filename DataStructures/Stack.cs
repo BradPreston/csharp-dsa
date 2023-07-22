@@ -40,5 +40,20 @@ namespace DataStructures
 
             Size++;
         }
+
+        internal T? Pop()
+        {
+            if (First == null) return default;
+
+            Node nodeToRemove = First;
+
+            if (Size == 1) Last = null;
+
+            First = nodeToRemove.Next;
+
+            Size--;
+
+            return nodeToRemove.Value;
+        }
     }
 }

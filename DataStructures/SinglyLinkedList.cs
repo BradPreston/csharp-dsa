@@ -47,7 +47,7 @@ namespace DataStructures
             Node current = Head;
             Node newTail = current;
 
-            while(current.Next != null)
+            while (current.Next != null)
             {
                 newTail = current;
                 current = current.Next;
@@ -57,7 +57,7 @@ namespace DataStructures
             Tail.Next = null;
             Length--;
 
-            if (Length  == 0)
+            if (Length == 0)
             {
                 Head = null;
                 Tail = null;
@@ -82,6 +82,24 @@ namespace DataStructures
             }
 
             Length++;
+        }
+
+        internal T? Shift()
+        {
+            if (Head == null) return default;
+
+            Node current = Head;
+            Head = current.Next;
+
+            Length--;
+
+            if (Length == 0)
+            {
+                Head = null;
+                Tail = null;
+            }
+
+            return current.Value;
         }
     }
 }

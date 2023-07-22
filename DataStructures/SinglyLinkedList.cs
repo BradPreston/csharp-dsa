@@ -20,6 +20,24 @@ namespace DataStructures
             {
                 this.Value = Value;
             }
-        } 
+        }
+
+        internal void Push(T Value)
+        {
+            Node newNode = new Node(Value);
+
+            if (Tail == null)
+            {
+                Head = newNode;
+                Tail = newNode;
+            }
+            else
+            {
+                Tail.Next = newNode;
+                Tail = newNode;
+            }
+
+            Length++;
+        }
     }
 }

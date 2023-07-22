@@ -22,5 +22,23 @@ namespace DataStructures
                 this.Value = Value;
             }
         }
+
+        internal void Push(T Value)
+        {
+            Node newNode = new Node(Value);
+
+            if (Size == 0)
+            {
+                First = newNode;
+                Last = newNode;
+            }
+            else
+            {
+                newNode.Next = First;
+                First = newNode;
+            }
+
+            Size++;
+        }
     }
 }

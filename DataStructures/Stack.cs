@@ -13,7 +13,7 @@ namespace DataStructures
             internal T Value;
             internal Node? Next;
 
-            private Node(T Value)
+            internal Node(T Value)
             {
                 this.Value = Value;
             }

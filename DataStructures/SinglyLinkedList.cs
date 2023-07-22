@@ -120,5 +120,23 @@ namespace DataStructures
 
             return current.Value;
         }
+
+        internal void Set(int index, T Value)
+        {
+            if (index < 0 || index >= Length) return;
+            if (Head == null) return;
+
+            int counter = 0;
+            Node current = Head;
+
+            while(counter < index)
+            {
+                if (current.Next == null) break;
+                current = current.Next;
+                counter++;
+            }
+
+            current.Value = Value;
+        }
     }
 }

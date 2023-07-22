@@ -8,6 +8,10 @@ namespace DataStructures
 {
     internal class SinglyLinkedList<T>
     {
+        private Node? Head = null;
+        private Node? Tail = null;
+        internal int Length = 0;
+
         private class Node
         {
             internal T Value;

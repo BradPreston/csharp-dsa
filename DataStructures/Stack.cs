@@ -6,7 +6,17 @@ using System.Threading.Tasks;
 
 namespace DataStructures
 {
-    internal class Stack
+    internal class Stack<T>
     {
+        private class Node
+        {
+            internal T Value;
+            internal Node? Next;
+
+            private Node(T Value)
+            {
+                this.Value = Value;
+            }
+        }
     }
 }

@@ -39,5 +39,31 @@ namespace DataStructures
 
             Length++;
         }
+
+        internal T? Pop()
+        {
+            if (Head == null) return default;
+
+            Node current = Head;
+            Node newTail = current;
+
+            while(current.Next != null)
+            {
+                newTail = current;
+                current = current.Next;
+            }
+
+            Tail = newTail;
+            Tail.Next = null;
+            Length--;
+
+            if (Length  == 0)
+            {
+                Head = null;
+                Tail = null;
+            }
+
+            return current.Value;
+        }
     }
 }

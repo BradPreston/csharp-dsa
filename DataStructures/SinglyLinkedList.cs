@@ -8,5 +8,14 @@ namespace DataStructures
 {
     internal class SinglyLinkedList<T>
     {
+        private class Node
+        {
+            internal T Value;
+            internal Node? Next = null;
+            internal Node(T Value)
+            {
+                this.Value = Value;
+            }
+        } 
     }
 }

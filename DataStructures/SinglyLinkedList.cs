@@ -101,5 +101,24 @@ namespace DataStructures
 
             return current.Value;
         }
+
+        internal T? Get(int index)
+        {
+            if (index < 0 || index >= Length) return default;
+            if (Head == null) return default;
+
+            int counter = 0;
+            Node current = Head;
+
+            while(counter >= index)
+            {
+                if (current.Next == null) break;
+
+                current = current.Next;
+                counter++;
+            }
+
+            return current.Value;
+        }
     }
 }

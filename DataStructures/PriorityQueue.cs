@@ -12,12 +12,12 @@ namespace DataStructures
     /// <typeparam name="T"></typeparam>
     internal class PriorityQueue<T>
     {
-        private readonly List<Node> values = new();
+        private readonly List<Node> _values = new();
 
         private class Node
         {
-            internal T Value;
-            internal int Priority;
+            internal readonly T Value;
+            internal readonly int Priority;
             // could add a time variable to check which node was added first if two nodes have the same priority
 
             internal Node(T value, int priority)
@@ -35,9 +35,9 @@ namespace DataStructures
         internal void Enqueue(T value, int priority)
         {
             Node newNode = new Node(value, priority);
-            values.Add(newNode);
-            int index = values.Count - 1;
-            BubbleUp(Convert.ToDecimal(index), values[index]);
+            _values.Add(newNode);
+            int index = _values.Count - 1;
+            BubbleUp(Convert.ToDecimal(index), _values[index]);
         }
 
         /// <summary>
@@ -47,20 +47,20 @@ namespace DataStructures
         internal T? Dequeue()
         {
             // if the priority queue is empty, return the default for T
-            if (values.Count == 0) return default;
+            if (_values.Count == 0) return default;
 
             // set min to the first node in the priority queue
-            Node min = values[0];
+            Node min = _values[0];
             // set the end to the last node in the priority queue
-            Node end = values.Last();
+            Node end = _values.Last();
             // remove the end node from the list
-            values.RemoveAt(values.Count - 1);
+            _values.RemoveAt(_values.Count - 1);
 
             // if the priority queue is not empty
-            if (values.Count > 0)
+            if (_values.Count > 0)
             {
                 // set the new min as the end node in the priority queue
-                values[0] = end;
+                _values[0] = end;
                 // send the new end down the priority queue until it finds a fitting parent
                 SinkDown();
             }
@@ -82,14 +82,14 @@ namespace DataStructures
                 // get the index of the parent
                 decimal parentIndex = Math.Floor(findParent);
                 // grab the parent from the values list
-                Node parent = values[(int)parentIndex];
+                Node parent = _values[(int)parentIndex];
 
                 // if the current node has a greater priority than the parent, break out. No need to swap
                 if (element.Priority >= parent.Priority) { break; }
 
                 // swap the parent and the current element
-                values[(int)parentIndex] = element;
-                values[(int)index] = parent;
+                _values[(int)parentIndex] = element;
+                _values[(int)index] = parent;
 
                 // set the index to the parentIndex to check if the parent needs to swap with its new parent
                 index = parentIndex;
@@ -102,8 +102,8 @@ namespace DataStructures
         private void SinkDown()
         {
             int index = 0;
-            int length = values.Count;
-            Node element = values[0];
+            int length = _values.Count;
+            Node element = _values[0];
 
             while (true)
             {
@@ -112,7 +112,6 @@ namespace DataStructures
                 int rightChildIndex = index * 2 + 2;
 
                 Node? leftChildValue = null;
-                Node? rightChildValue = null;
 
                 // set swap to -1 if it hasn't been swapped yet
                 int swap = -1;
@@ -121,7 +120,7 @@ namespace DataStructures
                 if (leftChildIndex < length)
                 {
                     // set the left child value to the left child in the list
-                    leftChildValue = values[leftChildIndex];
+                    leftChildValue = _values[leftChildIndex];
 
                     // if the priority of the left child is smaller than the current root
                     if (leftChildValue.Priority < element.Priority)
@@ -136,7 +135,7 @@ namespace DataStructures
                 if (rightChildIndex < length)
                 {
                     // set the right child value to the value of the right child in the list
-                    rightChildValue = values[rightChildIndex];
+                    Node? rightChildValue = _values[rightChildIndex];
 
                     // if swap is -1 (aka, no left child index) and the priority of the left child is smaller than the
                     // priority of the current root
@@ -157,9 +156,9 @@ namespace DataStructures
                 if (swap == -1) break;
 
                 // set the value at the current index to the value at the index of the swap (right or left child index)
-                values[index] = values[swap];
+                _values[index] = _values[swap];
                 // the value at the swap index (right or left child index) becomes our new root value
-                values[swap] = element;
+                _values[swap] = element;
                 // set the index as the swap index and start the loop over
                 index = swap;
             }

@@ -12,15 +12,15 @@ namespace DataStructures
     /// </summary>
     internal class HashTable
     {
-        private readonly List<string[]>[] keyMap;
+        private readonly List<string[]>[] _keyMap;
 
         /// <summary>
-        /// Constructor sets the size of the keyMap array
+        /// Constructor sets the size of the _keyMap array
         /// </summary>
         /// <param name="size"></param>
         internal HashTable(int size = 53)
         {
-            keyMap = new List<string[]>[size];
+            _keyMap = new List<string[]>[size];
         }
 
         /// <summary>
@@ -31,14 +31,14 @@ namespace DataStructures
         private int Hash(string key)
         {
             int total = 0;
-            int prime = 31;
+            const int prime = 31;
 
             for (int i = 0; i < Math.Min(key.Length, 100); i++)
             {
                 char c = key[i];
                 int value = (int)c - 96;
                 // multiply the total by the prime to prevent collisions
-                total = (total * prime + value) % keyMap.Length;
+                total = (total * prime + value) % _keyMap.Length;
             }
 
             return total;
@@ -54,22 +54,22 @@ namespace DataStructures
             // get the index of the key from the map
             int index = Hash(key);
             // create a new key value variable
-            List<string[]> kv = new();
+            List<string[]>? kv = new();
 
-            // if there isn't a value in the keyMap at this index
-            if (keyMap.GetValue(index) == null)
+            // if there isn't a value in the _keyMap at this index
+            if (_keyMap.GetValue(index) == null)
             {
                 // set the value to the new empty key value variable
-                keyMap.SetValue(kv, index);
+                _keyMap.SetValue(kv, index);
             }
 
             // set the keyValue variable to the value returned at the index
-            kv = (List<string[]>)keyMap.GetValue(index);
-            // add a new key value pair to the index in the keyMap
-            kv.Add(new string[] { key, value });
+            kv = (List<string[]>?)_keyMap.GetValue(index);
+            // add a new key value pair to the index in the _keyMap
+            kv?.Add(new string[] { key, value });
 
             // set the value at the index of the key value pair array
-            keyMap.SetValue(kv, index);
+            _keyMap.SetValue(kv, index);
         }
 
         /// <summary>
@@ -83,19 +83,21 @@ namespace DataStructures
             int index = Hash(key);
 
             // if the value at the index is null, return null
-            if (keyMap.GetValue(index) == null) return null;
+            if (_keyMap.GetValue(index) == null) return null;
 
             // get the list of key value pairs at the index
-            List<string[]> valuesAtIndex = (List<string[]>)keyMap.GetValue(index);
+            List<string[]>? valuesAtIndex = (List<string[]>?)_keyMap.GetValue(index);
 
+            if (valuesAtIndex == null) return null;
+            
             // loop over each key value pair
             foreach(string[] kv in valuesAtIndex)
             {
                 // if the key of key value matches the key passed in to Get
-                if ((string)kv.GetValue(0) == key)
+                if ((string?)kv.GetValue(0) == key)
                 {
                     // return the key
-                    return (string)kv.GetValue(1);
+                    return (string?)kv.GetValue(1);
                 }
             }
 
@@ -111,11 +113,10 @@ namespace DataStructures
         {
             List<string> values = new();
 
-            // loop over all the entries in the keyMap
-            foreach(List<string[]> entry in keyMap)
+            // loop over all the entries in the _keyMap
+            foreach(List<string[]> entry in _keyMap)
             {
-                if (entry == null) continue;
-
+                
                 // loop over the kv pairs in the entry
                 foreach(string[] kv in entry)
                 {
@@ -136,11 +137,9 @@ namespace DataStructures
         {
             List<string> keys = new();
 
-            // loop over all the entries in the keyMap
-            foreach (List<string[]> entry in keyMap)
+            // loop over all the entries in the _keyMap
+            foreach (List<string[]> entry in _keyMap)
             {
-                if (entry == null) continue;
-
                 // loop over the kv pairs in the entry
                 foreach (string[] kv in entry)
                 {

@@ -12,44 +12,44 @@ namespace DataStructures
     /// <typeparam name="T"></typeparam>
     internal class Stack<T>
     {
-        private Node? First = null;
-        private Node? Last = null;
-        internal int Size = 0; 
+        private Node? _first = null;
+        private Node? _last = null;
+        private int _size = 0; 
 
         /// <summary>
         /// Node represents a node in the Stack.
         /// </summary>
         private class Node
         {
-            internal T Value;
+            internal readonly T Value;
             internal Node? Next = null;
 
-            internal Node(T Value)
+            internal Node(T value)
             {
-                this.Value = Value;
+                this.Value = value;
             }
         }
 
         /// <summary>
         /// Push adds a node to the beginning of the stack.
         /// </summary>
-        /// <param name="Value"></param>
-        internal void Push(T Value)
+        /// <param name="value"></param>
+        internal void Push(T value)
         {
-            Node newNode = new Node(Value);
+            Node newNode = new Node(value);
 
-            if (Size == 0)
+            if (_size == 0)
             {
-                First = newNode;
-                Last = newNode;
+                _first = newNode;
+                _last = newNode;
             }
             else
             {
-                newNode.Next = First;
-                First = newNode;
+                newNode.Next = _first;
+                _first = newNode;
             }
 
-            Size++;
+            _size++;
         }
 
         /// <summary>
@@ -58,15 +58,15 @@ namespace DataStructures
         /// <returns>Returns the value of the removed node; or the default of <c>T</c> if empty.</returns>
         internal T? Pop()
         {
-            if (First == null) return default;
+            if (_first == null) return default;
 
-            Node nodeToRemove = First;
+            Node nodeToRemove = _first;
 
-            if (Size == 1) Last = null;
+            if (_size == 1) _last = null;
 
-            First = nodeToRemove.Next;
+            _first = nodeToRemove.Next;
 
-            Size--;
+            _size--;
 
             return nodeToRemove.Value;
         }

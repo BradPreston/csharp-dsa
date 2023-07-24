@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DataStructures
+﻿namespace DataStructures
 {
     /// <summary>
     /// HashTable stores key value pairs in a table
@@ -36,7 +29,7 @@ namespace DataStructures
             for (int i = 0; i < Math.Min(key.Length, 100); i++)
             {
                 char c = key[i];
-                int value = (int)c - 96;
+                int value = c - 96;
                 // multiply the total by the prime to prevent collisions
                 total = (total * prime + value) % _keyMap.Length;
             }
@@ -66,7 +59,7 @@ namespace DataStructures
             // set the keyValue variable to the value returned at the index
             kv = (List<string[]>?)_keyMap.GetValue(index);
             // add a new key value pair to the index in the _keyMap
-            kv?.Add(new string[] { key, value });
+            kv?.Add(new[] { key, value });
 
             // set the value at the index of the key value pair array
             _keyMap.SetValue(kv, index);

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DataStructures
+﻿namespace DataStructures
 {
     /// <summary>
     /// Represents a list with links that go one direction.
@@ -12,14 +6,14 @@ namespace DataStructures
     /// <typeparam name="T"></typeparam>
     internal class SinglyLinkedList<T>
     {
-        private Node? _head = null;
-        private Node? _tail = null;
-        private int _length = 0;
+        private Node? _head ;
+        private Node? _tail ;
+        private int _length;
 
         private class Node
         {
             internal T Value;
-            internal Node? Next = null;
+            internal Node? Next;
             internal Node(T value)
             {
                 this.Value = value;

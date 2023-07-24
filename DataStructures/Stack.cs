@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DataStructures
+﻿namespace DataStructures
 {
     /// <summary>
     /// Stack implements a last in-first out style list.
@@ -12,9 +6,8 @@ namespace DataStructures
     /// <typeparam name="T"></typeparam>
     internal class Stack<T>
     {
-        private Node? _first = null;
-        private Node? _last = null;
-        private int _size = 0; 
+        private Node? _first;
+        private int _size; 
 
         /// <summary>
         /// Node represents a node in the Stack.
@@ -22,7 +15,7 @@ namespace DataStructures
         private class Node
         {
             internal readonly T Value;
-            internal Node? Next = null;
+            internal Node? Next;
 
             internal Node(T value)
             {
@@ -41,7 +34,6 @@ namespace DataStructures
             if (_size == 0)
             {
                 _first = newNode;
-                _last = newNode;
             }
             else
             {
@@ -62,7 +54,7 @@ namespace DataStructures
 
             Node nodeToRemove = _first;
 
-            if (_size == 1) _last = null;
+            if (_size == 1) _first = null;
 
             _first = nodeToRemove.Next;
 

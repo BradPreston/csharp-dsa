@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DataStructures
+﻿namespace DataStructures
 {
     internal class BinarySearchTree<T>
     {
 
-        private Node? _root = null;
+        private Node? _root;
 
         /// <summary>
         /// Node is the class that holds the binary tree node.
@@ -18,8 +11,8 @@ namespace DataStructures
         internal class Node
         {
             internal T Value;
-            internal Node? Left = null;
-            internal Node? Right = null;
+            internal Node? Left;
+            internal Node? Right;
 
             public Node(T value)
             {
@@ -258,7 +251,7 @@ namespace DataStructures
         internal List<T> DfsPostOrder()
         {
             List<T> visited = new List<T>();
-            if (_root == null) { return visited; };
+            if (_root == null) return visited;
             PostOrderTraverse(visited, _root);
             return visited;
         }
@@ -270,7 +263,7 @@ namespace DataStructures
         internal List<T> DfsInOrder()
         {
             List<T> visited = new List<T>();
-            if (_root == null) { return visited; };
+            if (_root == null) return visited;
             InOrderTraverse(visited, _root);
             return visited;
         }

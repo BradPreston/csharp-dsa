@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DataStructures
+﻿namespace DataStructures
 {
     /// <summary>
     /// Priority Queue stores values in a min binary heap like structure based on priority
@@ -135,7 +129,7 @@ namespace DataStructures
                 if (rightChildIndex < length)
                 {
                     // set the right child value to the value of the right child in the list
-                    Node? rightChildValue = _values[rightChildIndex];
+                    Node rightChildValue = _values[rightChildIndex];
 
                     // if swap is -1 (aka, no left child index) and the priority of the left child is smaller than the
                     // priority of the current root

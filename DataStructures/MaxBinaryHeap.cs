@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DataStructures
+﻿namespace DataStructures
 {
     /// <summary>
     /// MaxBinaryHeap stores nodes in a tree where the children are smaller than the parent.
@@ -120,7 +114,7 @@ namespace DataStructures
                 if (rightChildIndex < length)
                 {
                     // set the right child value to the value of the right child in the list
-                    T? rightChildValue = _values[rightChildIndex];
+                    T rightChildValue = _values[rightChildIndex];
 
                     // if swap is -1 (aka, no left child index) and the new root value is less than the right child value
                     // OR

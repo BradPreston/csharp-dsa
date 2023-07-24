@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DataStructures
+﻿namespace DataStructures
 {
     /// <summary>
     /// Queue represents a first in-first out (FIFO) data structure.
@@ -13,9 +6,9 @@ namespace DataStructures
     /// <typeparam name="T"></typeparam>
     internal class Queue<T>
     {
-        private Node? _first = null;
-        private Node? _last = null;
-        internal int Size = 0;
+        private Node? _first ;
+        private Node? _last ;
+        internal int Size;
 
         /// <summary>
         /// Node represents a node in the queue. 
@@ -23,7 +16,7 @@ namespace DataStructures
         private class Node
         {
             internal readonly T Value;
-            internal Node? Next = null;
+            internal Node? Next ;
 
             public Node(T value)
             {

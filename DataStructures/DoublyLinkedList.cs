@@ -66,5 +66,24 @@ namespace DataStructures
 
             return currentTail.Value;
         }
+        
+        internal void Unshift(T value)
+        {
+            Node newNode = new Node(value);
+
+            if (_head == null)
+            {
+                _head = newNode;
+                _tail = newNode;
+            }
+            else
+            {
+                newNode.Next = _head;
+                _head.Prev = newNode;
+                _head = newNode;
+            }
+
+            _length++;
+        }
     }
 }

@@ -14,7 +14,7 @@ namespace DataStructures
 
         private class Node
         {
-            internal readonly T Value;
+            internal T Value;
             internal Node? Next = null;
             internal Node? Prev = null;
             internal Node(T value)
@@ -125,6 +125,24 @@ namespace DataStructures
             }
 
             return current.Value;
+        }
+        
+        internal void Set(int index, T value)
+        {
+            if (index < 0 || index >= _length) return;
+            if (_head == null) return;
+
+            int counter = 0;
+            Node current = _head;
+
+            while(counter < index)
+            {
+                if (current.Next == null) break;
+                current = current.Next;
+                counter++;
+            }
+
+            current.Value = value;
         }
     }
 }

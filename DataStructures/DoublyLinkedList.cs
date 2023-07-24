@@ -14,7 +14,7 @@ namespace DataStructures
 
         private class Node
         {
-            internal T Value;
+            internal readonly T Value;
             internal Node? Next = null;
             internal Node? Prev = null;
             internal Node(T value)

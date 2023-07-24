@@ -16,15 +16,15 @@ namespace DataStructures
         {
             internal T Value;
             internal Node? Next = null;
-            internal Node(T Value)
+            internal Node(T value)
             {
-                this.Value = Value;
+                this.Value = value;
             }
         }
 
-        internal void Push(T Value)
+        internal void Push(T value)
         {
-            Node newNode = new Node(Value);
+            Node newNode = new Node(value);
 
             if (Tail == null)
             {
@@ -66,9 +66,9 @@ namespace DataStructures
             return current.Value;
         }
 
-        internal void Unshift(T Value)
+        internal void Unshift(T value)
         {
-            Node newNode = new Node(Value);
+            Node newNode = new Node(value);
 
             if (Head == null)
             {
@@ -121,7 +121,7 @@ namespace DataStructures
             return current.Value;
         }
 
-        internal void Set(int index, T Value)
+        internal void Set(int index, T value)
         {
             if (index < 0 || index >= Length) return;
             if (Head == null) return;
@@ -136,7 +136,7 @@ namespace DataStructures
                 counter++;
             }
 
-            current.Value = Value;
+            current.Value = value;
         }
     }
 }

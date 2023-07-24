@@ -138,5 +138,41 @@ namespace DataStructures
 
             current.Value = value;
         }
+
+        internal void Insert(int index, T value)
+        {
+            if (index < 0 || index > _length) return;
+            if (index == _length)
+            {
+                this.Push(value);
+                return;
+            }
+
+            if (index == 0)
+            {
+                this.Unshift(value);
+                return;
+            }
+
+            Node newNode = new Node(value);
+            
+            int counter = 0;
+            Node? nodeBeforeInsert = _head;
+
+            while(counter < index)
+            {
+                if (nodeBeforeInsert?.Next == null) break;
+
+                nodeBeforeInsert = nodeBeforeInsert.Next;
+                counter++;
+            }
+
+            if (nodeBeforeInsert == null) return;
+
+            newNode.Next = nodeBeforeInsert.Next;
+            nodeBeforeInsert.Next = newNode;
+
+            _length++;
+        }
     }
 }

@@ -13,8 +13,8 @@ namespace DataStructures
     /// <typeparam name="T"></typeparam>
     internal class Queue<T>
     {
-        private Node? First = null;
-        private Node? Last = null;
+        private Node? _first = null;
+        private Node? _last = null;
         internal int Size = 0;
 
         /// <summary>
@@ -22,7 +22,7 @@ namespace DataStructures
         /// </summary>
         private class Node
         {
-            internal T Value;
+            internal readonly T Value;
             internal Node? Next = null;
 
             public Node(T value)
@@ -39,16 +39,16 @@ namespace DataStructures
         {
             Node newNode = new Node(value);
 
-            // check if Last is null since we're adding to the end of the queue.
-            if (Last == null)
+            // check if _last is null since we're adding to the end of the queue.
+            if (_last == null)
             {
-                First = newNode;
-                Last = newNode;
+                _first = newNode;
+                _last = newNode;
             }
             else 
             {
-                Last.Next = newNode;
-                Last = newNode;
+                _last.Next = newNode;
+                _last = newNode;
             }
 
             Size++;
@@ -58,23 +58,19 @@ namespace DataStructures
         /// Dequeue returns the first node in the queue.
         /// </summary>
         /// <returns>The value of the removed node; throws error if queue is empty.</returns>
-        /// <exception cref="Exception"></exception>
-        internal T Dequeue()
+        internal T? Dequeue()
         {
-            // check if First is null since we're removing from the beginning of the queue.
-            if (First == null)
+            // check if _first is null since we're removing from the beginning of the queue.
+            if (_first == null) return default;
+
+            Node nodeToRemove = _first;
+
+            if (_first == _last)
             {
-                throw new Exception("cannot remove from an empty queue");
+                _last = null;
             }
 
-            Node nodeToRemove = First;
-
-            if (First == Last)
-            {
-                Last = null;
-            }
-
-            First = First.Next;
+            _first = _first.Next;
 
             Size--;
 

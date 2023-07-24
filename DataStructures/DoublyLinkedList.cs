@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace DataStructures
 {
+    /// <summary>
+    /// Represents a list with links that go both directions.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     internal class DoublyLinkedList<T>
     {
         private Node? _head = null;
@@ -23,6 +27,10 @@ namespace DataStructures
             }
         }
 
+        /// <summary>
+        /// Push adds a node to the end of the list.
+        /// </summary>
+        /// <param name="value"></param>
         internal void Push(T value)
         {
             Node newNode = new Node(value);
@@ -42,6 +50,10 @@ namespace DataStructures
             _length++;
         }
 
+        /// <summary>
+        /// Pop removes the last node in the list.
+        /// </summary>
+        /// <returns>The value of the popped node; or the default type for <typeparamref name="T"/> if empty.</returns>
         internal T? Pop()
         {
             if (_tail == null) return default;
@@ -56,7 +68,7 @@ namespace DataStructures
             else
             {
                 _tail = _tail.Prev;
-
+                // check if tail is null again after reassigning it's value
                 if (_tail == null) return default;
                 
                 _tail.Next = null;
@@ -67,6 +79,10 @@ namespace DataStructures
             return currentTail.Value;
         }
         
+        /// <summary>
+        /// Unshift adds a node to the beginning of the list.
+        /// </summary>
+        /// <param name="value"></param>
         internal void Unshift(T value)
         {
             Node newNode = new Node(value);
@@ -86,6 +102,10 @@ namespace DataStructures
             _length++;
         }
         
+        /// <summary>
+        /// Shift removes the first node from the list.
+        /// </summary>
+        /// <returns>The value of the shifted node; or the default type for <typeparamref name="T"/> if empty.</returns>
         internal T? Shift()
         {
             if (_head == null) return default;
@@ -93,6 +113,7 @@ namespace DataStructures
             Node current = _head;
             _head = current.Next;
 
+            // check if _head is null again after reassigning it's value
             if (_head == null) return default;
             
             _head.Prev = null;
@@ -108,6 +129,11 @@ namespace DataStructures
             return current.Value;
         }
         
+        /// <summary>
+        /// Gets a value of a node by index.
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns>The value of the found node; or the default type for <typeparamref name="T"/> if not found.</returns>
         internal T? Get(int index)
         {
             if (index < 0 || index >= _length) return default;
@@ -127,6 +153,11 @@ namespace DataStructures
             return current.Value;
         }
         
+        /// <summary>
+        /// Finds a node by index and replaces it's value with a new value.
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="value"></param>
         internal void Set(int index, T value)
         {
             if (index < 0 || index >= _length) return;
@@ -145,6 +176,11 @@ namespace DataStructures
             current.Value = value;
         }
         
+        /// <summary>
+        /// Insert adds a node to the list after the index.
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="value"></param>
         internal void Insert(int index, T value)
         {
             if (index < 0 || index > _length) return;
@@ -172,21 +208,24 @@ namespace DataStructures
                 nodeBeforeInsert = nodeBeforeInsert.Next;
                 counter++;
             }
-
-            if (nodeBeforeInsert == null) return;
-
             
-            newNode.Next = nodeBeforeInsert.Next;
+            if (nodeBeforeInsert?.Next == null) return;
 
-            if (nodeBeforeInsert.Next == null) return;
+            Node nodeAfterInsert = nodeBeforeInsert.Next;
             
-            nodeBeforeInsert.Next.Prev = newNode;
-            newNode.Prev = nodeBeforeInsert;
+            nodeAfterInsert.Prev = newNode;
+            newNode.Next = nodeAfterInsert;
             nodeBeforeInsert.Next = newNode;
+            newNode.Prev = nodeBeforeInsert;
 
             _length++;
         }
         
+        /// <summary>
+        /// Removes a node from the list by index.
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns>The value of the removed node; or the default type for <typeparamref name="T"/> if not found.</returns>
         internal T? Remove(int index)
         {
             if (index < 0 || index > _length) return default;
@@ -209,10 +248,9 @@ namespace DataStructures
             if (nodeToRemove == null || nodeBeforeRemove == null) return default;
 
             Node? nodeAfterRemove = nodeToRemove.Next;
-            nodeBeforeRemove.Next = nodeToRemove.Next;
-
             if (nodeAfterRemove == null) return default;
             
+            nodeBeforeRemove.Next = nodeAfterRemove;
             nodeAfterRemove.Prev = nodeBeforeRemove;
 
             _length--;

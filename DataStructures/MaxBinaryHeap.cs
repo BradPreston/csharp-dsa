@@ -12,7 +12,7 @@ namespace DataStructures
     /// <typeparam name="T"></typeparam>
     internal class MaxBinaryHeap<T>
     {
-        private readonly List<T> values = new();
+        private readonly List<T> _values = new();
 
         /// <summary>
         /// Inserts a node into the Heap.
@@ -20,9 +20,9 @@ namespace DataStructures
         /// <param name="value"></param>
         internal void Insert(T value)
         {
-            values.Add(value);
-            int index = values.Count - 1;
-            BubbleUp(Convert.ToDecimal(index), values[index]);
+            _values.Add(value);
+            int index = _values.Count - 1;
+            BubbleUp(Convert.ToDecimal(index), _values[index]);
         }
 
         /// <summary>
@@ -32,20 +32,20 @@ namespace DataStructures
         internal T? ExtractMax()
         {
             // if the heap is empty, return the default for T
-            if (values.Count == 0) return default;
+            if (_values.Count == 0) return default;
 
             // set max to the first element in the heap
-            T max = values[0];
+            T max = _values[0];
             // set the end to the last element in the heap
-            T end = values.Last();
+            T end = _values.Last();
             // remove the end element from the list
-            values.RemoveAt(values.Count - 1);
+            _values.RemoveAt(_values.Count - 1);
 
             // if the heap is not empty
-            if (values.Count > 0)
+            if (_values.Count > 0)
             {
                 // set the new max as the end value in the heap
-                values[0] = end;
+                _values[0] = end;
                 // send the new end down the heap until it finds a fitting parent
                 SinkDown();
             }
@@ -67,14 +67,14 @@ namespace DataStructures
                 // get the index of the parent
                 decimal parentIndex = Math.Floor(findParent);
                 // grab the parent from the values list
-                T parent = values[(int)parentIndex];
+                T parent = _values[(int)parentIndex];
 
                 // if the current node is smaller than the parent, break out. No need to swap
                 if (IsLessThan(element, parent)) { break; }
 
                 // swap the parent and the current element
-                values[(int)parentIndex] = element;
-                values[(int)index] = parent;
+                _values[(int)parentIndex] = element;
+                _values[(int)index] = parent;
 
                 // set the index to the parentIndex to check if the parent needs to swap with its new parent
                 index = parentIndex;
@@ -87,8 +87,8 @@ namespace DataStructures
         private void SinkDown()
         {
             int index = 0;
-            int length = values.Count;
-            T element = values[0];
+            int length = _values.Count;
+            T element = _values[0];
 
             while (true)
             {
@@ -97,7 +97,6 @@ namespace DataStructures
                 int rightChildIndex = index * 2 + 2;
 
                 T? leftChildValue = default;
-                T? rightChildValue = default;
 
                 // set swap to -1 if it hasn't been swapped yet
                 int swap = -1;
@@ -106,7 +105,7 @@ namespace DataStructures
                 if (leftChildIndex < length)
                 {
                     // set the left child value to the left child in the list
-                    leftChildValue = values[leftChildIndex];
+                    leftChildValue = _values[leftChildIndex];
 
                     // if the new root is smaller than the left child value
                     if (IsLessThan(element, leftChildValue))
@@ -121,7 +120,7 @@ namespace DataStructures
                 if (rightChildIndex < length)
                 {
                     // set the right child value to the value of the right child in the list
-                    rightChildValue = values[rightChildIndex];
+                    T? rightChildValue = _values[rightChildIndex];
 
                     // if swap is -1 (aka, no left child index) and the new root value is less than the right child value
                     // OR
@@ -144,9 +143,9 @@ namespace DataStructures
                 if (swap == -1) break;
 
                 // set the value at the current index to the value at the index of the swap (right or left child index)
-                values[index] = values[swap];
+                _values[index] = _values[swap];
                 // the value at the swap index (right or left child index) becomes our new root value
-                values[swap] = element;
+                _values[swap] = element;
                 // set the index as the swap index and start the loop over
                 index = swap;
             }

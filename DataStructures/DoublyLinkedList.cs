@@ -186,5 +186,38 @@ namespace DataStructures
 
             _length++;
         }
+        
+        internal T? Remove(int index)
+        {
+            if (index < 0 || index > _length) return default;
+            if (index == _length) return this.Pop();
+            if (index == 0) return this.Shift();
+
+            int counter = 0;
+            Node? nodeBeforeRemove = _head;
+
+            while(counter < index - 1)
+            {
+                if (nodeBeforeRemove?.Next == null) break;
+
+                nodeBeforeRemove = nodeBeforeRemove.Next;
+                counter++;
+            }
+
+            Node? nodeToRemove = nodeBeforeRemove?.Next;
+
+            if (nodeToRemove == null || nodeBeforeRemove == null) return default;
+
+            Node? nodeAfterRemove = nodeToRemove.Next;
+            nodeBeforeRemove.Next = nodeToRemove.Next;
+
+            if (nodeAfterRemove == null) return default;
+            
+            nodeAfterRemove.Prev = nodeBeforeRemove;
+
+            _length--;
+
+            return nodeToRemove.Value;
+        }
     }
 }

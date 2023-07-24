@@ -56,6 +56,9 @@ namespace DataStructures
             else
             {
                 _tail = _tail.Prev;
+
+                if (_tail == null) return default;
+                
                 _tail.Next = null;
             }
 

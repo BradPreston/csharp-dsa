@@ -51,7 +51,7 @@ namespace DataStructures
         /// <summary>
         /// Pop removes the last node in the list.
         /// </summary>
-        /// <returns>The value of the popped node; or the default type for <typeparamref name="T"/> if emtpy.</returns>
+        /// <returns>The value of the popped node; or the default type for <typeparamref name="T"/> if empty.</returns>
         internal T? Pop()
         {
             if (_head == null) return default;
@@ -103,7 +103,7 @@ namespace DataStructures
         /// <summary>
         /// Shift removes the first node from the list.
         /// </summary>
-        /// <returns>The value of the shifted node; or the default type for <typeparamref name="T"/> if emtpy.</returns>
+        /// <returns>The value of the shifted node; or the default type for <typeparamref name="T"/> if empty.</returns>
         internal T? Shift()
         {
             if (_head == null) return default;

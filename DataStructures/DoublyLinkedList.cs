@@ -85,5 +85,27 @@ namespace DataStructures
 
             _length++;
         }
+        
+        internal T? Shift()
+        {
+            if (_head == null) return default;
+
+            Node current = _head;
+            _head = current.Next;
+
+            if (_head == null) return default;
+            
+            _head.Prev = null;
+
+            _length--;
+
+            if (_length == 0)
+            {
+                _head = null;
+                _tail = null;
+            }
+
+            return current.Value;
+        }
     }
 }

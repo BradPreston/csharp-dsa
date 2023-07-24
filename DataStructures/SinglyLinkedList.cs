@@ -8,9 +8,9 @@ namespace DataStructures
 {
     internal class SinglyLinkedList<T>
     {
-        private Node? Head = null;
-        private Node? Tail = null;
-        internal int Length = 0;
+        private Node? _head = null;
+        private Node? _tail = null;
+        private int _length = 0;
 
         private class Node
         {
@@ -26,25 +26,25 @@ namespace DataStructures
         {
             Node newNode = new Node(value);
 
-            if (Tail == null)
+            if (_tail == null)
             {
-                Head = newNode;
-                Tail = newNode;
+                _head = newNode;
+                _tail = newNode;
             }
             else
             {
-                Tail.Next = newNode;
-                Tail = newNode;
+                _tail.Next = newNode;
+                _tail = newNode;
             }
 
-            Length++;
+            _length++;
         }
 
         internal T? Pop()
         {
-            if (Head == null) return default;
+            if (_head == null) return default;
 
-            Node current = Head;
+            Node current = _head;
             Node newTail = current;
 
             while (current.Next != null)
@@ -53,14 +53,14 @@ namespace DataStructures
                 current = current.Next;
             }
 
-            Tail = newTail;
-            Tail.Next = null;
-            Length--;
+            _tail = newTail;
+            _tail.Next = null;
+            _length--;
 
-            if (Length == 0)
+            if (_length == 0)
             {
-                Head = null;
-                Tail = null;
+                _head = null;
+                _tail = null;
             }
 
             return current.Value;
@@ -70,33 +70,33 @@ namespace DataStructures
         {
             Node newNode = new Node(value);
 
-            if (Head == null)
+            if (_head == null)
             {
-                Head = newNode;
-                Tail = newNode;
+                _head = newNode;
+                _tail = newNode;
             }
             else
             {
-                newNode.Next = Head;
-                Head = newNode;
+                newNode.Next = _head;
+                _head = newNode;
             }
 
-            Length++;
+            _length++;
         }
 
         internal T? Shift()
         {
-            if (Head == null) return default;
+            if (_head == null) return default;
 
-            Node current = Head;
-            Head = current.Next;
+            Node current = _head;
+            _head = current.Next;
 
-            Length--;
+            _length--;
 
-            if (Length == 0)
+            if (_length == 0)
             {
-                Head = null;
-                Tail = null;
+                _head = null;
+                _tail = null;
             }
 
             return current.Value;
@@ -104,11 +104,11 @@ namespace DataStructures
 
         internal T? Get(int index)
         {
-            if (index < 0 || index >= Length) return default;
-            if (Head == null) return default;
+            if (index < 0 || index >= _length) return default;
+            if (_head == null) return default;
 
             int counter = 0;
-            Node current = Head;
+            Node current = _head;
 
             while(counter >= index)
             {
@@ -123,11 +123,11 @@ namespace DataStructures
 
         internal void Set(int index, T value)
         {
-            if (index < 0 || index >= Length) return;
-            if (Head == null) return;
+            if (index < 0 || index >= _length) return;
+            if (_head == null) return;
 
             int counter = 0;
-            Node current = Head;
+            Node current = _head;
 
             while(counter < index)
             {

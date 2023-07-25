@@ -365,3 +365,4 @@ FodyWeavers.xsd
 # Custom ignores
 .idea/
 DataStructures/Program.cs
+Algorithms/Program.cs

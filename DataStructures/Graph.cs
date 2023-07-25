@@ -1,4 +1,6 @@
-﻿namespace DataStructures
+﻿using System.Data;
+
+namespace DataStructures
 {
     internal class Graph<T> where T : notnull
     {
@@ -35,8 +37,24 @@
             if (!_adjacencyList.TryGetValue(vertex2, out List<T>? vertex2Array))
                 throw new KeyNotFoundException($"Key: \"{vertex2}\" was not found.");
 
+            if (vertex1Array?.IndexOf(vertex2) < 0 || vertex2Array?.IndexOf(vertex1) < 0)
+                throw new DataException($"No edge between \"{vertex2}\" and \"{vertex1}\"");
+
             vertex1Array?.Remove(vertex2);
             vertex2Array?.Remove(vertex1);
+        }
+
+        internal void RemoveVertex(T vertex)
+        {
+            if (!_adjacencyList.ContainsKey(vertex))
+                throw new KeyNotFoundException($"Key: \"{vertex}\" was not found.");
+            
+            foreach (List<T> value in _adjacencyList.Values)
+            {
+                value.Remove(vertex);
+            }
+
+            _adjacencyList.Remove(vertex);
         }
     }
 }

@@ -30,6 +30,8 @@ namespace DataStructures
             
             if (!_adjacencyList.TryGetValue(vertex2, out List<T>? vertex2Array))
                 throw new KeyNotFoundException($"Key: \"{vertex2}\" was not found.");
+
+            if (vertex1Array?.IndexOf(vertex2) > 0 || vertex2Array?.IndexOf(vertex1) > 0) return;
             
             vertex1Array?.Add(vertex2);
             vertex2Array?.Add(vertex1);

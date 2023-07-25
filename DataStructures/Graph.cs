@@ -18,23 +18,14 @@
         /// <exception cref="KeyNotFoundException"><c>vertex1</c> or <c>vertex2</c> were not found as keys.</exception>
         internal void AddEdge(T vertex1, T vertex2)
         {
-            if (_adjacencyList.TryGetValue(vertex1, out List<T>? vertex1Array))
-            {
-                vertex1Array?.Add(vertex2);
-            }
-            else
-            {
+            if (!_adjacencyList.TryGetValue(vertex1, out List<T>? vertex1Array))
                 throw new KeyNotFoundException($"Key: \"{vertex1}\" was not found.");
-            }
-
-            if (_adjacencyList.TryGetValue(vertex2, out List<T>? vertex2Array))
-            {
-                vertex2Array?.Add(vertex1);
-            }
-            else
-            {
+            
+            if (!_adjacencyList.TryGetValue(vertex2, out List<T>? vertex2Array))
                 throw new KeyNotFoundException($"Key: \"{vertex2}\" was not found.");
-            }
+            
+            vertex1Array?.Add(vertex2);
+            vertex2Array?.Add(vertex1);
         }
     }
 }

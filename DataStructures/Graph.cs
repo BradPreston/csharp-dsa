@@ -76,5 +76,30 @@ namespace DataStructures
 
             _adjacencyList.Remove(vertex);
         }
+
+        internal List<T> DepthFirstRecursive(T vertex)
+        {
+            List<T> results = new List<T>();
+            Dictionary<T, bool> visited = new Dictionary<T, bool>();
+            
+            Dfs(vertex, visited, results);
+            
+            return results;
+        }
+
+        private void Dfs(T vertex, Dictionary<T, bool> visited, List<T> results)
+        {
+            visited.Add(vertex, true);
+            results.Add(vertex);
+            List<T>? values = _adjacencyList.GetValueOrDefault(vertex);
+            
+            if (values == default) return;
+            
+            foreach (T value in values)
+            {
+                if (visited.ContainsKey(value)) continue;
+                Dfs(value, visited, results);
+            }
+        }
     }
 }

@@ -8,7 +8,7 @@
     {
         private Node? _first ;
         private Node? _last ;
-        internal int Size;
+        private int _size;
 
         /// <summary>
         /// Node represents a node in the queue. 
@@ -44,7 +44,7 @@
                 _last = newNode;
             }
 
-            Size++;
+            _size++;
         }
 
         /// <summary>
@@ -65,9 +65,18 @@
 
             _first = _first.Next;
 
-            Size--;
+            _size--;
 
             return nodeToRemove.Value;
+        }
+        
+        /// <summary>
+        /// Gets the size of the queue.
+        /// </summary>
+        /// <returns>The number of nodes in the queue.</returns>
+        internal int Length()
+        {
+            return _size;
         }
     }
 }

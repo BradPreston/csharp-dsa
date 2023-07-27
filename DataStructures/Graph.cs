@@ -132,5 +132,37 @@ namespace DataStructures
             }
             return results;
         }
+
+        internal List<T> BreadthFirstTraversal(T vertex)
+        {
+            Queue<T> queue = new Queue<T>();
+            List<T> results = new List<T>();
+            Dictionary<T, bool> visited = new Dictionary<T, bool>();
+            
+            queue.Enqueue(vertex);
+            visited[vertex] = true;
+
+            while (queue.Length() > 0)
+            {
+                T? currentVertex = queue.Dequeue();
+
+                if (currentVertex == null) break;
+                
+                results.Add(currentVertex);
+                
+                List<T>? neighbors = _adjacencyList.GetValueOrDefault(currentVertex);
+
+                if (neighbors == null) continue;
+                
+                foreach (T neighbor in neighbors)
+                {
+                    if (visited.ContainsKey(neighbor)) continue;
+                    visited[neighbor] = true;
+                    queue.Enqueue(neighbor);
+                }
+            }
+
+            return results;
+        }
     }
 }

@@ -101,5 +101,36 @@ namespace DataStructures
                 Dfs(value, visited, results);
             }
         }
+
+        internal List<T> DepthFirstIterative(T vertex)
+        {
+            List<T> results = new List<T>();
+            Stack<T> stack = new Stack<T>();
+            Dictionary<T, bool> visited = new Dictionary<T, bool>();
+
+            stack.Push(vertex);
+            visited.Add(vertex, true);
+
+            while (stack.Length() > 0)
+            {
+                T? popped = stack.Pop();
+                
+                if (popped == null) continue;
+                
+                results.Add(popped);
+
+                List<T>? neighbors = _adjacencyList.GetValueOrDefault(popped);
+
+                if (neighbors == null) continue;
+
+                foreach (T neighbor in neighbors)
+                {
+                    if (visited.ContainsKey(neighbor)) continue;
+                    visited[neighbor] = true;
+                    stack.Push(neighbor);
+                }
+            }
+            return results;
+        }
     }
 }

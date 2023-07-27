@@ -62,5 +62,14 @@
 
             return nodeToRemove.Value;
         }
+
+        /// <summary>
+        /// Gets the size of the stack.
+        /// </summary>
+        /// <returns>The number of nodes in the stack.</returns>
+        internal int Length()
+        {
+            return _size;
+        }
     }
 }

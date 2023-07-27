@@ -22,8 +22,9 @@ namespace DataStructures
         /// </summary>
         /// <param name="vertex1">The first vertex.</param>
         /// <param name="vertex2">The second vertex.</param>
+        /// <param name="weight"></param>
         /// <exception cref="KeyNotFoundException">Either <c>vertex1</c> or <c>vertex2</c> were not found as a key.</exception>
-        internal void AddEdge(T vertex1, T vertex2, int weight = 0)
+        internal void AddEdge(T vertex1, T vertex2, int? weight = null)
         {
             if (!_adjacencyList.TryGetValue(vertex1, out List<object>? vertex1Array))
                 throw new KeyNotFoundException($"Key: \"{vertex1}\" was not found.");
@@ -33,15 +34,15 @@ namespace DataStructures
 
             if (vertex1Array?.IndexOf(vertex2) > 0 || vertex2Array?.IndexOf(vertex1) > 0) return;
             
-            if (weight == 0)
+            if (weight == null)
             {
                 vertex1Array?.Add(vertex2);
                 vertex2Array?.Add(vertex1);
             }
             else
             {
-                vertex1Array?.Add(new KeyValuePair<T, int>(vertex2, weight));
-                vertex2Array?.Add(new KeyValuePair<T, int>(vertex1, weight));
+                vertex1Array?.Add(new KeyValuePair<T, int?>(vertex2, weight));
+                vertex2Array?.Add(new KeyValuePair<T, int?>(vertex1, weight));
             }
             
         }
